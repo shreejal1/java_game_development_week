@@ -1,14 +1,29 @@
-#source {
-	width: 110px;
-	height: 110px;
-	margin-top: 510px;
-	position: absolute;
+* {
+  margin: 0px;
 }
 
-/*.namiL {
-	
-	background-image: url("nami.png");
-	width: 110px;
-	height: 110px;
-	position: absolute;
-}*/
+
+#source {
+  width: 110px;
+  height: 110px;
+  /* margin-top: 510px; */
+}
+
+#ground {
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  background-color: #0a6522;
+  margin-top: 549px;
+}
+
+#sky {
+  position: absolute;
+  background-color: #7bd9f6;
+  width: 100%;
+  height: 550px;
+}
+#backfront {
+  position: absolute;
+  margin-top: 70px;
+}
