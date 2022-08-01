@@ -1,23 +1,24 @@
 function moveLeft() {
   var element = document.getElementById("backfront");
-  element.style.backgroundColor = "black";
   var positionLeft = element.offsetLeft;
-  element.style.left = positionLeft - 1 + "px";
+  element.style.left = positionLeft - 10 + "px";
 }
 
 function moveRight() {
-  var element = document.getElementById("source");
+  var element = document.getElementById("backfront");
   var positionLeft = element.offsetLeft;
-  element.style.left = positionLeft + 1 + "px";
+  element.style.left = positionLeft + 10 + "px";
 }
 
 var interval = 0;
 function myKeyDown(event) {
   if (event.keyCode == 37) {
-    interval = setInterval(moveLeft, 10);
+    moveLeft();
+    // interval = setInterval(moveLeft, 10);
   }
   if (event.keyCode == 39) {
-    interval = setInterval(moveRight, 10);
+    moveRight();
+    //interval = setInterval(moveRight, 10);
   }
 }
 
