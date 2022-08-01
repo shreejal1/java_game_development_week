@@ -142,9 +142,10 @@ function countdown(){
   var countdown = document.getElementById('start');
   countdown.style.width= 200 + 'px';
   countdown.style.height= 40 + 'px';
-  countdown.style.backgroundColor = 'yellow';
+  countdown.style.backgroundColor = 'lawngreen';
   countdown.style.top = 50 + '%';
   countdown.style.left = 50 + '%';
+  countdown.style.textAlign = 'center';
   countdown.style.position = 'absolute';
   countdown.style.marginLeft = '-' + 100 + 'px';
   countdown.style.borderRadius = 10 + '%';
