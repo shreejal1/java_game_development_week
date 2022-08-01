@@ -28,7 +28,7 @@ alert('About the game: \n This fun game is based on the theme related to nami co
 
 function logo(){
 
-  var randomN= Math.round(Math.random()*1000);
+  var randomN= Math.round(Math.random()*1800);
   //var logoNami= document.getElementById('namiL');
   
   
