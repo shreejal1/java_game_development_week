@@ -41,14 +41,13 @@ aside ul {list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom:
 
 
 
-#alien {
-	
-	position: absolute; 
-	height: 50px; 
-	width: 50px;
+#scorehere{
+	background-color: #fef3f4;
+	width: 150px;
+	border-radius: 5px;
 }
 
-.bomb {
+.logos {
 	
 	width:110px;
 	height: 110px;
@@ -91,30 +90,30 @@ aside ul {list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom:
 	border-radius: 20px;
 	box-shadow: 4px 4px 4px #000;
 }
-.explosion {
+.logosOnGround {
 	width: 110px;
 	height: 110px;
 	position: absolute;
 	background-position: -96px -401px;
 }
 
-.explosion:before {
+.logosOnGround:before {
 	
 }
 
-.explosion:after {
+.logosOnGround:after {
 	
 	
 }
 
-@keyframes bombV {
+@keyframes logosV {
 	0%, 100% { background-position: 32px -32px; }
 	12.5%, 87.5% { background-position: 64px -32px; }
 	25%, 75% { background-position: 96px -32px; }
 	37.5%, 62.5% { background-position: 0 -32px; }
 }
 
-@keyframes bombH {
+@keyframes logosH {
 	0%, 100% { background-position: 0 -288px; }
 	12.5%, 87.5% { background-position: 0 -256px; }
 	25%, 75% { background-position: 0 -224px; }
@@ -160,7 +159,7 @@ aside ul {list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom:
 
 }
 	.character.dead .body:after {
-		background-image: characterdead;
+		background-image: url(characterdead.png);
 		content: "";
 		width: 32px;
 		height: 32px;

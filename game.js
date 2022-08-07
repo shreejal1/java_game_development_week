@@ -85,110 +85,110 @@ function loadGame() {
 	setTimeout(function(){start[0].style.opacity = '0.6'; }, 400);
 	setTimeout(function(){start[0].style.opacity = '0.2'; }, 600);
 	setTimeout(function(){start[0].style.display = 'none'; }, 800);
-	shipsInterval = setInterval(spaceShipOnTop, 500);
+	shipsInterval = setInterval(logosOnTop, 500);
 	setInterval(function(){
 		if (score >= 4 && score <=6){
-		setInterval(releaseBomb, 7);   // the flag's speed get enhanced
+		setInterval(releaseLogo, 7);   // the flag's speed get enhanced
 		 }
 		if (score >= 7 && score <= 30) {
-			setInterval(releaseBomb, 7);   //the flag's speed get enhanced
+			setInterval(releaseLogo, 7);   //the flag's speed get enhanced
 		}
 		if (score >= 60 && score <= 110) {
-			setInterval(releaseBomb, 6);   //ethe flag's speed get enhanced
+			setInterval(releaseLogo, 6);   //ethe flag's speed get enhanced
 		}
 		if (score >= 111) {
-			setInterval(releaseBomb, 5);   //the flag's speed get enhanced
+			setInterval(releaseLogo, 5);   //the flag's speed get enhanced
 		}
 	}, 500);
-	bombFalls = setInterval(releaseBomb, 20);
+	logosFalls = setInterval(releaseLogo, 20);
 	
 	myLoadFunction();
 }
 
 
-//players can see spaceships and bombs falling from it on the screen.
-function spaceShipOnTop() {
+//players can see logoss and logoss falling from it on the screen.
+function logosOnTop() {
 	var body = document.getElementsByTagName('body')[0];
-	//var spaceShip = document.getElementById('alien');
-	//spaceShip.style.top = 10 + 'px';
 	var windowsize = screen.availWidth;
 	var randNumber = Math.ceil(Math.random() * 1100);
-	//spaceShip.style.left = (randNumber * 20) + 'px';
-//	spaceShip.style.backgroundSize = 'cover';
-	//var spaceShipL = parseInt(spaceShip.style.left);
-	var bomb = document.createElement('img');
-	bomb.className = 'bomb';
+	var logos = document.createElement('img');
+	logos.className = 'logos';
 	var randomL = Math.ceil(Math.random() * 10);
-	bomb.src = randomL + ".png";
-	body.appendChild(bomb);
-	bomb.style.top = 50 + 'px';  // bomb creating on basis of spaceship top position.
-	bomb.style.left = (randNumber * 2) + 'px'; // bomb creating on basis of spaceship left position.
+	logos.src = randomL + ".png";
+	body.appendChild(logos);
+	logos.style.top = 50 + 'px';  
+	logos.style.left = (randNumber * 2) + 'px'; 
 }
 
-// bombs falls and explode on green area.
-function releaseBomb() {
+// logoss falls and vanish on ground
+function releaseLogo() {
 	var player = document.getElementById('player');
-	var manyBombs = document.getElementsByClassName('bomb');
-	for (var i = 0; manyBombs.length > i; i++) {
-		var bomb = manyBombs[i];
-		var bombTop = parseInt(bomb.style.top);
-		var bombLeft = parseInt(bomb.style.left);
+	var manyLogos = document.getElementsByClassName('logos');
+	for (var i = 0; manyLogos.length > i; i++) {
+		var logos = manyLogos[i];
+		var logosTop = parseInt(logos.style.top);
+		var logosLeft = parseInt(logos.style.left);
 		var playerOnLeft = parseInt(player.offsetLeft);
-		bomb.style.top = bombTop + 1 + 'px';
+		logos.style.top = logosTop + 1 + 'px';
 		
 	}
-	bombAndPlayerCollide();
+	logosAndPlayerCollide();
 }
 
 
 
-//if character is hit by bomb, it loses a health & the bomb explodes.
-function bombAndPlayerCollide(){
+//if character is hit by logos, it loses a health & the logos explodes.
+function logosAndPlayerCollide(){
 	var body = document.getElementsByTagName('body')[0];
 	var player = document.getElementById('player');
 	var playerLeft = parseInt(player.offsetLeft);
 	var playerTop = parseInt(player.offsetTop);
-	var manyBombs = document.getElementsByClassName('bomb');
-	for (var i = 0; manyBombs.length > i; i++) {
-		var bomb = manyBombs[i];
-		bombTop = parseInt(bomb.style.top);
-		var bombLeft = parseInt(bomb.style.left);
-		if (bombTop == playerTop) {
-			if (bombLeft >= (playerLeft - 55) 
+
+	var manyLogos = document.getElementsByClassName('logos');
+	for (var i = 0; manyLogos.length > i; i++) {
+		var logos = manyLogos[i];
+		logosTop = parseInt(logos.style.top);
+		console.log(logosTop);
+		var logosLeft = parseInt(logos.style.left);
+		if ((playerTop - logosTop) <= 85) {
+			if (logosLeft >= (playerLeft - 70) 
 						&&
-			 	bombLeft <= (playerLeft + 55)){
+			 	logosLeft <= (playerLeft + 70)){
 					lifeLosses();
-					bomb.className = 'explosion';
+					logos.className = 'logosOnGround';
 					setTimeout(function(){
-						var explosion = document.getElementsByClassName('explosion');
-						for (var i = 0; i < explosion.length; i++) {
-							body.removeChild(explosion[i]);
+						var logosOnGround = document.getElementsByClassName('logosOnGround');
+						for (var i = 0; i < logosOnGround.length; i++) {
+							body.removeChild(logosOnGround[i]);
 						}
 					}, 5);
 				}
-			crackBomb();
+			cracklogos();
 		}
 	}
 }
 
 
-// bomb explodes in different height on green area.
-function crackBomb(){
+// logos explodes in different height on green area.
+function cracklogos(){
 	var body = document.getElementsByTagName('body')[0];
-	var manyBombs = document.getElementsByClassName('bomb');
+	var manyLogos = document.getElementsByClassName('logos');
 	var player = document.getElementById('player');
 	var playerTop = parseInt(player.offsetTop);
-	for (var i = 0; manyBombs.length > i; i++) {
-		var bomb = manyBombs[i];
-		bombTop = parseInt(bomb.style.top);
-		bombLeft = parseInt(bomb.style.left);
-		if (bombTop == playerTop) { // bomb explodes a/c to player top position.
-			bomb.className = 'explosion';
+	for (var i = 0; manyLogos.length > i; i++) {
+		var logos = manyLogos[i];
+		logosTop = parseInt(logos.style.top);
+		logosLeft = parseInt(logos.style.left);
+		if (logosTop == playerTop) { // logos explodes a/c to player top position.
+			logos.className = 'logosOnGround';
 			setTimeout(function () {
-				var bomb = document.getElementsByClassName('explosion');
-				for (var i = 0; i < bomb .length; i++) {
-					body.removeChild(bomb[i]);
+				var scoreb = document.getElementById('scorehere');
+				var logos = document.getElementsByClassName('logosOnGround');
+				for (var i = 0; i < logos .length; i++) {
+					body.removeChild(logos[i]);
 					score += 1;
+					scoreb.firstChild.nodeValue = 'SCORE : ' + score;
+
 				}
 			}, 5);
 		}
@@ -207,7 +207,9 @@ function lifeLosses(){
 	else {
 		manyLives.removeChild(aLife[0]);
 		player.className = 'characterdead';
+		
 		finishTheGame();
+		
 	}
 }
 
@@ -225,8 +227,10 @@ function finishTheGame() {
 
 	
 
-	//bomb stops
-	clearInterval(bombFalls);
+	//logos stops
+	clearInterval(releaseLogo);
+		clearInterval(logosOnTop);
+		clearInterval(loadGame);
 
 	// reloads the game
 	start.addEventListener('click', function () {
@@ -239,7 +243,7 @@ function finishTheGame() {
 		window.localStorage.setItem("chrName", chrName);
 		alert("Player Name: " + localStorage.getItem("chrName") + "\nScore: " + score);
 		// alerts player name and score.
-	}, 1500);
+	}, 10);
 }
 
 
