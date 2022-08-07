@@ -1,0 +1,206 @@
+/* Import website font */
+@import url('https://stockfont.org/?6c9104ed5c89e7a4966839d8d30af7dba1aa2b1f891952b5e9e0fdea697a8b81');
+
+body {background-color:#484d49; margin: 0; padding: 0; font-family: 'Oxygen-Regular', sans-serif; overflow: hidden;}
+
+
+.sky {
+	position: absolute;
+	width: 100vw;
+	height: 70vh;
+	left: 0;
+	top: 0;
+	background-color: skyblue;
+	background-position: bottom left;
+
+}
+
+#player{
+	margin-top: 567px;
+	position: absolute;
+}
+#playerone{
+	width: 100px;
+	height: 100px;
+	position: absolute;
+}
+
+.playerdead{
+	background-image: url(charcterdead.png);
+	width: 100px;
+	height: 100px;
+	position: absolute;
+}
+
+aside {width: 200px; position: fixed; height: 100vh; left: 100%; margin-left: -240px; background-color: #ddd; border-left: 5px solid #bbb; padding: 20px;}
+#closeside {float: right; font-weight: bold; cursor: pointer;}
+
+
+
+aside ul {list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom: 20px; overflow: auto;}
+
+
+
+#alien {
+	
+	position: absolute; 
+	height: 50px; 
+	width: 50px;
+}
+
+.bomb {
+	
+	width:110px;
+	height: 110px;
+	position: absolute;
+	background-position: -96px -401px;
+	
+}
+
+.start:before {
+	
+	background-repeat: no-repeat;
+	background-position: 0px -64px;
+	width: 32px;
+	height: 32px;
+	content: " ";
+	display: block;
+	position: absolute;
+	margin-top: 0.4em;
+	margin-left: 0.4em;
+}
+
+.start {
+
+	color: white;
+	text-shadow: 2px 2px 2px #000;
+	position: absolute;
+	font-size: 2em;
+	margin-left: auto;
+	margin-right: auto;
+	width: 20vw;
+	background-color: darkblue;
+	z-index: 1000;
+	text-align: center;
+	left: 50%;
+	margin-left: -10vw;
+	top: 50%;
+	margin-top: -1em;
+	font-family: 'Anton';
+	cursor: pointer;
+	border-radius: 20px;
+	box-shadow: 4px 4px 4px #000;
+}
+.explosion {
+	width: 110px;
+	height: 110px;
+	position: absolute;
+	background-position: -96px -401px;
+}
+
+.explosion:before {
+	
+}
+
+.explosion:after {
+	
+	
+}
+
+@keyframes bombV {
+	0%, 100% { background-position: 32px -32px; }
+	12.5%, 87.5% { background-position: 64px -32px; }
+	25%, 75% { background-position: 96px -32px; }
+	37.5%, 62.5% { background-position: 0 -32px; }
+}
+
+@keyframes bombH {
+	0%, 100% { background-position: 0 -288px; }
+	12.5%, 87.5% { background-position: 0 -256px; }
+	25%, 75% { background-position: 0 -224px; }
+	37.5%, 62.5% { background-position: 0 -224px; }
+}
+
+
+
+
+
+
+
+
+.enemy.dead:before {
+	content: "";
+	width: 32px;
+	height: 32px;
+	display: block;
+	position: absolute;
+	margin-left: 8px;
+	margin-top: 12px;
+	background-image: url(images/sprites.png);
+	animation: enemydie 2s steps(1) forwards;
+	background-position: 0px -48px;
+}
+
+.enemy.dead .body, .enemy.dead .weapon, .enemy.dead .head {
+	animation: fadeout 0.5s forwards;
+}
+
+@keyframes fadeout {
+	0% {opacity: 1;}
+	100% {opacity: 0;}
+}
+@keyframes enemydie {
+	0%,20%,40%,60%,80% { background-position: 0px -48px; }
+	10%,30%,50%,70%,90% { background-position: -32px -48px; }
+	100% {opacity: 0;}
+}
+
+.character.dead .body {
+	animation: dead 1s steps(1) forwards;
+
+}
+	.character.dead .body:after {
+		background-image: characterdead;
+		content: "";
+		width: 32px;
+		height: 32px;
+		display: block;
+		background-position: 0px -480px;
+		margin-top: -12px;
+		position: absolute;
+		animation: deadarms 1s steps(1) forwards;
+	}
+
+.character.stand.dead .head {
+	animation: deadhead 1s steps(1) forwards;
+}
+
+
+
+
+
+
+
+
+
+.hud {position: fixed; width: 100%; z-index: 1000;}
+ul {list-style-type: none;float: right; margin-right: 20px;}
+.health li {width: 40px; height: 48px; background-image: url(images/state.png); background-size: 50px;  float:right; margin-left: 8px;}
+
+
+
+
+
+
+
+.level {
+	border-collapse: collapse;
+}
+
+
+.editor {width: 2048px;}
+.scroll {
+	width: 100vh;
+	overflow-x: scroll;
+	height: 512;
+}
