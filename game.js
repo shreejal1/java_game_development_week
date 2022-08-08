@@ -110,14 +110,14 @@ function loadGame() {
 function logosOnTop() {
 	var body = document.getElementsByTagName('body')[0];
 	var windowsize = screen.availWidth;
-	var randNumber = Math.ceil(Math.random() * 1100);
+	var randNumber = Math.random();
 	var logos = document.createElement('img');
 	logos.className = 'logos';
 	var randomL = Math.ceil(Math.random() * 10);
 	logos.src = randomL + ".png";
 	body.appendChild(logos);
 	logos.style.top = 50 + 'px';  
-	logos.style.left = (randNumber * 2) + 'px'; 
+	logos.style.left = (randNumber * 1500) + 'px'; 
 }
 
 // logoss falls and vanish on ground
@@ -148,7 +148,6 @@ function logosAndPlayerCollide(){
 	for (var i = 0; manyLogos.length > i; i++) {
 		var logos = manyLogos[i];
 		logosTop = parseInt(logos.style.top);
-		console.log(logosTop);
 		var logosLeft = parseInt(logos.style.left);
 		if ((playerTop - logosTop) <= 85) {
 			if (logosLeft >= (playerLeft - 70) 
@@ -182,13 +181,13 @@ function cracklogos(){
 		if (logosTop == playerTop) { // logos explodes a/c to player top position.
 			logos.className = 'logosOnGround';
 			setTimeout(function () {
-				var scoreb = document.getElementById('scorehere');
+				
 				var logos = document.getElementsByClassName('logosOnGround');
 				for (var i = 0; i < logos .length; i++) {
 					body.removeChild(logos[i]);
 					score += 1;
+					var scoreb = document.getElementById('scorehere');
 					scoreb.firstChild.nodeValue = 'SCORE : ' + score;
-
 				}
 			}, 5);
 		}
@@ -197,17 +196,18 @@ function cracklogos(){
 
 
 function lifeLosses(){
+	
 	var player = document.getElementById('player');
 	var manyLives = document.getElementsByTagName('ul')[0];
 	var aLife = document.getElementsByTagName('li');
 	if (aLife.length > 1) {
 		manyLives.removeChild(aLife[0]);
 		player.className = 'characterdead';
+
 	} 
 	else {
 		manyLives.removeChild(aLife[0]);
 		player.className = 'characterdead';
-		
 		finishTheGame();
 		
 	}
@@ -215,6 +215,13 @@ function lifeLosses(){
 
 // when character dies, the game stops and shows restart button for restarting the game.
 function finishTheGame() {
+
+	
+	
+
+	var scoreb = document.getElementById('scorehere');
+	scoreb.remove();
+	
 	var start = document.getElementsByClassName('start')[0];
 	start.style.display = 'block';
 	start.style.opacity = '1';
@@ -227,11 +234,7 @@ function finishTheGame() {
 
 	
 
-	//logos stops
-	clearInterval(releaseLogo);
-		clearInterval(logosOnTop);
-		clearInterval(loadGame);
-
+	
 	// reloads the game
 	start.addEventListener('click', function () {
 		location.reload();
@@ -239,9 +242,14 @@ function finishTheGame() {
 
 	// input feild for player's name.
 	setTimeout(function () {
+
+		
 		var chrName = prompt("Please Enter Your Name", "");
 		window.localStorage.setItem("chrName", chrName);
 		alert("Player Name: " + localStorage.getItem("chrName") + "\nScore: " + score);
+		clearInterval(cracklogos);
+		clearInterval(loadGame);
+
 		// alerts player name and score.
 	}, 10);
 }
