@@ -4,6 +4,7 @@ var leftPressed = false;
 var rightPressed = false;
 var lastPressed = false;
 var score = 0;
+var logoCollected = 0;
 
 function keyup(event) {
 	var player = document.getElementById('player');
@@ -76,16 +77,78 @@ function btnClick() {
 	start[0].addEventListener('click', loadGame);
 }
 
+//codes for creation and fall of nami & university logos
+function namiLogo(){
+
+	var body = document.getElementsByTagName('body')[0];
+	var randomN = Math.ceil(Math.random()*2);
+	var logos2 = document.createElement('img');
+	logos2.className = 'logoNami';
+	logos2.src = "logo" + randomN + ".png";
+	var randNumber = Math.random()*10;
+	body.appendChild(logos2);
+	logos2.style.top = 50 + 'px';
+	logos2.style.left = (randNumber * 150) + 'px'; 
+
+	
+	setInterval(namiunilogo, 20);
+
+	var body = document.getElementsByTagName('body')[0];
+	var player = document.getElementById('player');
+	var playerLeft = parseInt(player.offsetLeft);
+	var playerTop = parseInt(player.offsetTop);
+
+	var manyLogos = document.getElementsByClassName('logoNami');
+	for (var i = 0; manyLogos.length > i; i++) {
+		var logos = manyLogos[i];
+		logosTop = parseInt(logos.style.top);
+		var logosLeft = parseInt(logos.style.left);
+		if ((playerTop - logosTop) <= 85) {
+			if (logosLeft >= (playerLeft - 70) 
+						&&
+			 	logosLeft <= (playerLeft + 70)){
+					logoCollected += 1;
+					logos.className = 'logosOnGround';
+					setTimeout(function(){
+						var logosOnGround = document.getElementsByClassName('logosOnGround');
+						for (var i = 0; i < logosOnGround.length; i++) {
+							body.removeChild(logosOnGround[i]);
+						}
+					}, 5);
+				}
+		}
+	}
+
+
+
+}
+
+
+function namiunilogo(){
+	var namiLogos = document.getElementsByClassName('logoNami');
+	for (var i = 0; namiLogos.length > i; i++) {
+		var logosnami = namiLogos[i];
+		var logosTop = parseInt(logosnami.style.top);
+		
+		
+		logosnami.style.top = logosTop + 1 + 'px';
+		
+	}
+}
+
+
 
 //game loads in webpage when start button is clicked.
 function loadGame() {
+	
 	var start = document.getElementsByClassName('start');
 	start[0].firstChild.nodeValue = 'Launch';
 	setTimeout(function(){start[0].style.opacity = '0.8'; }, 200);
 	setTimeout(function(){start[0].style.opacity = '0.6'; }, 400);
 	setTimeout(function(){start[0].style.opacity = '0.2'; }, 600);
 	setTimeout(function(){start[0].style.display = 'none'; }, 800);
-	shipsInterval = setInterval(logosOnTop, 500);
+	shipsInterval = setInterval(logosOnTop, 1000);
+	namilogoint = setInterval(namiLogo, 750);
 	setInterval(function(){
 		if (score >= 4 && score <=6){
 		setInterval(releaseLogo, 7);   // the flag's speed get enhanced
@@ -110,25 +173,25 @@ function loadGame() {
 function logosOnTop() {
 	var body = document.getElementsByTagName('body')[0];
 	var windowsize = screen.availWidth;
-	var randNumber = Math.random();
+	var randNumber = Math.random()*60;
 	var logos = document.createElement('img');
 	logos.className = 'logos';
-	var randomL = Math.ceil(Math.random() * 10);
+	var randomL = Math.ceil(Math.random() * 5);
 	logos.src = randomL + ".png";
 	body.appendChild(logos);
-	logos.style.top = 50 + 'px';  
-	logos.style.left = (randNumber * 1500) + 'px'; 
+	logos.style.top = 50 + 'px';
+	logos.style.left = (randNumber * 20) + 'px'; 
 }
 
 // logoss falls and vanish on ground
 function releaseLogo() {
-	var player = document.getElementById('player');
+	
 	var manyLogos = document.getElementsByClassName('logos');
 	for (var i = 0; manyLogos.length > i; i++) {
 		var logos = manyLogos[i];
 		var logosTop = parseInt(logos.style.top);
-		var logosLeft = parseInt(logos.style.left);
-		var playerOnLeft = parseInt(player.offsetLeft);
+		
+		
 		logos.style.top = logosTop + 1 + 'px';
 		
 	}
@@ -185,9 +248,12 @@ function cracklogos(){
 				var logos = document.getElementsByClassName('logosOnGround');
 				for (var i = 0; i < logos .length; i++) {
 					body.removeChild(logos[i]);
+
+
+
 					score += 1;
 					var scoreb = document.getElementById('scorehere');
-					scoreb.firstChild.nodeValue = 'SCORE : ' + score;
+					scoreb.firstChild.nodeValue = 'SCORE : ' + (score + (logoCollected*10)) + '\nLogos Collected : ' + logoCollected;
 				}
 			}, 5);
 		}
@@ -243,10 +309,10 @@ function finishTheGame() {
 	// input feild for player's name.
 	setTimeout(function () {
 
-		
+		console.log(logoCollected);
 		var chrName = prompt("Please Enter Your Name", "");
 		window.localStorage.setItem("chrName", chrName);
-		alert("Player Name: " + localStorage.getItem("chrName") + "\nScore: " + score);
+		alert("Player Name: " + localStorage.getItem("chrName") + "\nScore: " + (score + (logoCollected*10)) + "\nLogos Collected: " + logoCollected);
 		clearInterval(cracklogos);
 		clearInterval(loadGame);
 
