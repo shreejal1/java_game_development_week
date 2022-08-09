@@ -103,11 +103,22 @@ function namiLogo(){
 		var logos = manyLogos[i];
 		logosTop = parseInt(logos.style.top);
 		var logosLeft = parseInt(logos.style.left);
+		if((logosTop - playerTop) >= 50){
+			logos.className = 'logosOnGround';
+					setTimeout(function(){
+						var logosOnGround = document.getElementsByClassName('logosOnGround');
+						for (var i = 0; i < logosOnGround.length; i++) {
+							body.removeChild(logosOnGround[i]);
+						}
+					}, 5);
+		}
 		if ((playerTop - logosTop) <= 85) {
 			if (logosLeft >= (playerLeft - 70) 
 						&&
 			 	logosLeft <= (playerLeft + 70)){
 					logoCollected += 1;
+					var scorebl = document.getElementById('scoreherelogo');
+					scorebl.firstChild.nodeValue = 'Logos Collected : ' + (logoCollected);
 					logos.className = 'logosOnGround';
 					setTimeout(function(){
 						var logosOnGround = document.getElementsByClassName('logosOnGround');
@@ -151,16 +162,16 @@ function loadGame() {
 	namilogoint = setInterval(namiLogo, 750);
 	setInterval(function(){
 		if (score >= 4 && score <=6){
-		setInterval(releaseLogo, 7);   // the flag's speed get enhanced
+		setInterval(releaseLogo, 19);   // the flag's speed get enhanced
 		 }
-		if (score >= 7 && score <= 30) {
-			setInterval(releaseLogo, 7);   //the flag's speed get enhanced
+		if (score >= 7) {
+			setInterval(releaseLogo, 15);   //the flag's speed get enhanced
 		}
-		if (score >= 60 && score <= 110) {
-			setInterval(releaseLogo, 6);   //ethe flag's speed get enhanced
+		if (score >= 60) {
+			setInterval(releaseLogo, 12);   //ethe flag's speed get enhanced
 		}
 		if (score >= 111) {
-			setInterval(releaseLogo, 5);   //the flag's speed get enhanced
+			setInterval(releaseLogo, 10);   //the flag's speed get enhanced
 		}
 	}, 500);
 	logosFalls = setInterval(releaseLogo, 20);
@@ -253,7 +264,9 @@ function cracklogos(){
 
 					score += 1;
 					var scoreb = document.getElementById('scorehere');
-					scoreb.firstChild.nodeValue = 'SCORE : ' + (score + (logoCollected*10)) + '\nLogos Collected : ' + logoCollected;
+					
+					scoreb.firstChild.nodeValue = 'FLAGS DODGED : ' + (score);
+					
 				}
 			}, 5);
 		}
@@ -262,18 +275,27 @@ function cracklogos(){
 
 
 function lifeLosses(){
-	
+	var life = document.getElementById('heartlife');
 	var player = document.getElementById('player');
 	var manyLives = document.getElementsByTagName('ul')[0];
 	var aLife = document.getElementsByTagName('li');
-	if (aLife.length > 1) {
+	 
+	if (aLife.length == 3) {
 		manyLives.removeChild(aLife[0]);
+		life.src = 'images/hearts2.png';
 		player.className = 'characterdead';
-
+		
 	} 
-	else {
+	else if (aLife.length == 2) {
+		manyLives.removeChild(aLife[0]);
+		life.src = 'images/hearts3.png';
+		player.className = 'characterdead';
+		
+	} 
+	else if(aLife.length ==1) {
 		manyLives.removeChild(aLife[0]);
 		player.className = 'characterdead';
+		life.remove();
 		finishTheGame();
 		
 	}
@@ -284,20 +306,21 @@ function finishTheGame() {
 
 	
 	
-
+	var scorebl = document.getElementById('scoreherelogo');
 	var scoreb = document.getElementById('scorehere');
 	scoreb.remove();
+	scorebl.remove();
 	
 	var start = document.getElementsByClassName('start')[0];
 	start.style.display = 'block';
 	start.style.opacity = '1';
-	start.firstChild.nodeValue = 'PLAY AGAIN?';
+	
+
 
 	// player cannot move after dying
 	document.removeEventListener('keydown', keydown);
 	document.removeEventListener('keyup', keyup);
 	clearInterval(timeout);
-
 	
 
 	
@@ -309,14 +332,14 @@ function finishTheGame() {
 	// input feild for player's name.
 	setTimeout(function () {
 
-		console.log(logoCollected);
+		// console.log(logoCollected);
 		var chrName = prompt("Please Enter Your Name", "");
 		window.localStorage.setItem("chrName", chrName);
-		alert("Player Name: " + localStorage.getItem("chrName") + "\nScore: " + (score + (logoCollected*10)) + "\nLogos Collected: " + logoCollected);
+		//alert("Player Name: " + localStorage.getItem("chrName") + "\nTotal Score: " + (score + (logoCollected*10)) + "\nLogos Collected: " + logoCollected);
 		clearInterval(cracklogos);
 		clearInterval(loadGame);
-
-		// alerts player name and score.
+		start.firstChild.nodeValue = localStorage.getItem("chrName") + ' SCORED : ' + (score + (logoCollected*10)) + "\nLogos Collected : " + logoCollected + '\nPLAY AGAIN?';
+		// displays player name and score.
 	}, 10);
 }
 

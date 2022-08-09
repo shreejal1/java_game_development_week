@@ -1,7 +1,7 @@
 /* Import website font */
 @import url('https://stockfont.org/?6c9104ed5c89e7a4966839d8d30af7dba1aa2b1f891952b5e9e0fdea697a8b81');
 
-body {background-color:#484d49; margin: 0; padding: 0; font-family: 'Oxygen-Regular', sans-serif; overflow: hidden;}
+body {background-color:#484d49; margin: 0; padding: 0; font-family: 'Games', sans-serif; overflow: hidden;}
 
 
 .sky {
@@ -14,6 +14,8 @@ body {background-color:#484d49; margin: 0; padding: 0; font-family: 'Oxygen-Regu
 	background-position: bottom left;
 
 }
+
+
 
 #player{
 	margin-top: 567px;
@@ -47,7 +49,15 @@ aside ul {list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom:
 	padding: 20px;
 	border-radius: 5px;
 	text-align: center;
-	margin: 13px 0px 0px 10px;*/
+	margin: 13px 0px 0px 10px;
+}
+#scoreherelogo{
+	background-color: greenyellow;
+	width: 150px;
+	padding: 20px;
+	border-radius: 5px;
+	text-align: center;
+	margin: -11px 0px 0px 10px;
 }
 
 .logos {
@@ -97,7 +107,7 @@ aside ul {list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom:
 	margin-left: -10vw;
 	top: 50%;
 	margin-top: -1em;
-	font-family: 'Anton';
+	font-family: 'Games', sans-serif;
 	cursor: pointer;
 	border-radius: 20px;
 	box-shadow: 4px 4px 4px #000;
@@ -201,8 +211,15 @@ ul {list-style-type: none;float: right; margin-right: 20px;}
 
 
 
+#heart{
+	position: absolute;
 
-
+}
+#heartlife {
+	width: 32px;
+	margin-left: 10px;
+	position: absolute;
+}
 
 .level {
 	border-collapse: collapse;
