@@ -324,7 +324,7 @@ function finishTheGame() {
 	var start = document.getElementsByClassName('start')[0];
 	start.style.display = 'block';
 	start.style.opacity = '1';
-	
+	start.firstChild.nodeValue = 'PLAY AGAIN?';
 
 
 	// player cannot move after dying
@@ -345,17 +345,17 @@ function finishTheGame() {
 		// console.log(logoCollected);
 		var chrName = prompt("Please Enter Your Name", "");
 		window.localStorage.setItem("chrName", chrName);
-		//alert("Player Name: " + localStorage.getItem("chrName") + "\nTotal Score: " + (score + (logoCollected*10)) + "\nLogos Collected: " + logoCollected);
+		alert("Player Name: " + localStorage.getItem("chrName") + "\nTotal Score: " + (score + (logoCollected*10)) + "\nLogos Collected: " + logoCollected);
 		//clearInterval(cracklogos);
 		//clearInterval(loadGame);
-		start.firstChild.nodeValue = localStorage.getItem("chrName") + ' SCORED : ' + (score + (logoCollected*10)) + "\nLogos Collected : " + logoCollected + '\nPLAY AGAIN?';
+		
 		// displays player name and score.
 	}, 10);
 
-	// clearInterval(namiFalls);
-	// clearInterval(logosFalls);
-	// clearInterval(namilogoint);
-	// clearInterval(logosInt);
+	clearInterval(namiFalls);
+	clearInterval(logosFalls);
+	clearInterval(namilogoint);
+	clearInterval(logosInt);
 }
 
 
