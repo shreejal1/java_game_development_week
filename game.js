@@ -77,6 +77,50 @@ function btnClick() {
 	start[0].addEventListener('click', loadGame);
 }
 
+
+
+
+//game loads in webpage when start button is clicked.
+function loadGame() {
+	
+	var start = document.getElementsByClassName('start');
+	start[0].firstChild.nodeValue = 'Launch';
+	setTimeout(function(){start[0].style.opacity = '0.8'; }, 200);
+	setTimeout(function(){start[0].style.opacity = '0.6'; }, 400);
+	setTimeout(function(){start[0].style.opacity = '0.2'; }, 600);
+	setTimeout(function(){start[0].style.display = 'none'; }, 800);
+	
+	logosInt = setInterval(logosOnTop, 1500);
+	namilogoint = setInterval(namiLogo, 1050);
+	
+	setInterval(function(){
+		if (score >= 20){
+			
+			setInterval(logosOnTop, 950); 	
+			setInterval(releaseLogo, 19);   // the flag's speed get enhanced
+		 }
+		if (score >= 40) {
+			
+			setInterval(logosOnTop, 750);
+			setInterval(releaseLogo, 15);   //the flag's speed get enhanced
+		}
+		if (score >= 80) {
+			
+			setInterval(logosOnTop, 600);
+			setInterval(releaseLogo, 12);   //ethe flag's speed get enhanced
+		}
+		if (score >= 130) {
+			
+			setInterval(logosOnTop, 500);
+			setInterval(releaseLogo, 10);   //the flag's speed get enhanced
+		}
+	}, 500);
+	logosFalls = setInterval(releaseLogo, 20);
+	namiFalls = setInterval(namiunilogo, 20);
+
+	myLoadFunction();
+}
+
 //codes for creation and fall of nami & university logos
 function namiLogo(){
 
@@ -90,49 +134,9 @@ function namiLogo(){
 	logos2.style.top = 50 + 'px';
 	logos2.style.left = (randNumber * 150) + 'px'; 
 
-	
-	setInterval(namiunilogo, 20);
-
-	var body = document.getElementsByTagName('body')[0];
-	var player = document.getElementById('player');
-	var playerLeft = parseInt(player.offsetLeft);
-	var playerTop = parseInt(player.offsetTop);
-
-	var manyLogos = document.getElementsByClassName('logoNami');
-	for (var i = 0; manyLogos.length > i; i++) {
-		var logos = manyLogos[i];
-		logosTop = parseInt(logos.style.top);
-		var logosLeft = parseInt(logos.style.left);
-		if((logosTop - playerTop) >= 50){
-			logos.className = 'logosOnGround';
-					setTimeout(function(){
-						var logosOnGround = document.getElementsByClassName('logosOnGround');
-						for (var i = 0; i < logosOnGround.length; i++) {
-							body.removeChild(logosOnGround[i]);
-						}
-					}, 5);
-		}
-		if ((playerTop - logosTop) <= 85) {
-			if (logosLeft >= (playerLeft - 70) 
-						&&
-			 	logosLeft <= (playerLeft + 70)){
-					logoCollected += 1;
-					var scorebl = document.getElementById('scoreherelogo');
-					scorebl.firstChild.nodeValue = 'Logos Collected : ' + (logoCollected);
-					logos.className = 'logosOnGround';
-					setTimeout(function(){
-						var logosOnGround = document.getElementsByClassName('logosOnGround');
-						for (var i = 0; i < logosOnGround.length; i++) {
-							body.removeChild(logosOnGround[i]);
-						}
-					}, 5);
-				}
-		}
 	}
 
-
-
-}
+	
 
 
 function namiunilogo(){
@@ -142,41 +146,10 @@ function namiunilogo(){
 		var logosTop = parseInt(logosnami.style.top);
 		
 		
-		logosnami.style.top = logosTop + 1 + 'px';
+		logosnami.style.top = logosTop + 5 + 'px';
 		
 	}
-}
-
-
-
-//game loads in webpage when start button is clicked.
-function loadGame() {
-	
-	var start = document.getElementsByClassName('start');
-	start[0].firstChild.nodeValue = 'Launch';
-	setTimeout(function(){start[0].style.opacity = '0.8'; }, 200);
-	setTimeout(function(){start[0].style.opacity = '0.6'; }, 400);
-	setTimeout(function(){start[0].style.opacity = '0.2'; }, 600);
-	setTimeout(function(){start[0].style.display = 'none'; }, 800);
-	shipsInterval = setInterval(logosOnTop, 1000);
-	namilogoint = setInterval(namiLogo, 750);
-	setInterval(function(){
-		if (score >= 4 && score <=6){
-		setInterval(releaseLogo, 19);   // the flag's speed get enhanced
-		 }
-		if (score >= 7) {
-			setInterval(releaseLogo, 15);   //the flag's speed get enhanced
-		}
-		if (score >= 60) {
-			setInterval(releaseLogo, 12);   //ethe flag's speed get enhanced
-		}
-		if (score >= 111) {
-			setInterval(releaseLogo, 10);   //the flag's speed get enhanced
-		}
-	}, 500);
-	logosFalls = setInterval(releaseLogo, 20);
-	
-	myLoadFunction();
+	namidetect();
 }
 
 
@@ -203,7 +176,7 @@ function releaseLogo() {
 		var logosTop = parseInt(logos.style.top);
 		
 		
-		logos.style.top = logosTop + 1 + 'px';
+		logos.style.top = logosTop + 5 + 'px';
 		
 	}
 	logosAndPlayerCollide();
@@ -211,7 +184,7 @@ function releaseLogo() {
 
 
 
-//if character is hit by logos, it loses a health & the logos explodes.
+//if character is hit by logos, it loses a health
 function logosAndPlayerCollide(){
 	var body = document.getElementsByTagName('body')[0];
 	var player = document.getElementById('player');
@@ -252,20 +225,16 @@ function cracklogos(){
 		var logos = manyLogos[i];
 		logosTop = parseInt(logos.style.top);
 		logosLeft = parseInt(logos.style.left);
-		if (logosTop == playerTop) { // logos explodes a/c to player top position.
+		if ((logosTop - playerTop) >= 50) {
 			logos.className = 'logosOnGround';
 			setTimeout(function () {
 				
 				var logos = document.getElementsByClassName('logosOnGround');
-				for (var i = 0; i < logos .length; i++) {
+				for (var i = 0; i < logos.length; i++) {
 					body.removeChild(logos[i]);
-
-
-
 					score += 1;
 					var scoreb = document.getElementById('scorehere');
-					
-					scoreb.firstChild.nodeValue = 'FLAGS DODGED : ' + (score);
+					scoreb.firstChild.nodeValue = 'FLAGS DODGED : ' + score ;
 					
 				}
 			}, 5);
@@ -273,6 +242,47 @@ function cracklogos(){
 	}
 }
 
+function namidetect(){
+	var body = document.getElementsByTagName('body')[0];
+	var player = document.getElementById('player');
+	var playerLeft = parseInt(player.offsetLeft);
+	var playerTop = parseInt(player.offsetTop);
+
+	var manyLogos = document.getElementsByClassName('logoNami');
+	for (var i = 0; manyLogos.length > i; i++) {
+		var logos = manyLogos[i];
+		logosTop = parseInt(logos.style.top);
+		var logosLeft = parseInt(logos.style.left);
+		if((logosTop - playerTop) >= 50){
+			logos.className = 'logosOnGround';
+					setTimeout(function(){
+						var logosOnGround = document.getElementsByClassName('logosOnGround');
+						for (var i = 0; i < logosOnGround.length; i++) {
+							body.removeChild(logosOnGround[i]);
+						}
+					}, 5);
+		}
+		if ((playerTop - logosTop) <= 85) {
+			if (logosLeft >= (playerLeft - 70) 
+						&&
+			 	logosLeft <= (playerLeft + 70)){
+					logoCollected += 1;
+					var scorebl = document.getElementById('scoreherelogo');
+					scorebl.firstChild.nodeValue = 'Logos Collected : ' + (logoCollected);
+					logos.className = 'logosOnGround';
+					setTimeout(function(){
+						var logosOnGround = document.getElementsByClassName('logosOnGround');
+						for (var i = 0; i < logosOnGround.length; i++) {
+							body.removeChild(logosOnGround[i]);
+						}
+					}, 5);
+				}
+		}
+	}
+
+
+
+	}
 
 function lifeLosses(){
 	var life = document.getElementById('heartlife');
@@ -321,7 +331,7 @@ function finishTheGame() {
 	document.removeEventListener('keydown', keydown);
 	document.removeEventListener('keyup', keyup);
 	clearInterval(timeout);
-	
+
 
 	
 	// reloads the game
@@ -336,11 +346,16 @@ function finishTheGame() {
 		var chrName = prompt("Please Enter Your Name", "");
 		window.localStorage.setItem("chrName", chrName);
 		//alert("Player Name: " + localStorage.getItem("chrName") + "\nTotal Score: " + (score + (logoCollected*10)) + "\nLogos Collected: " + logoCollected);
-		clearInterval(cracklogos);
-		clearInterval(loadGame);
+		//clearInterval(cracklogos);
+		//clearInterval(loadGame);
 		start.firstChild.nodeValue = localStorage.getItem("chrName") + ' SCORED : ' + (score + (logoCollected*10)) + "\nLogos Collected : " + logoCollected + '\nPLAY AGAIN?';
 		// displays player name and score.
 	}, 10);
+
+	// clearInterval(namiFalls);
+	// clearInterval(logosFalls);
+	// clearInterval(namilogoint);
+	// clearInterval(logosInt);
 }
 
 
