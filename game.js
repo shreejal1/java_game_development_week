@@ -90,33 +90,29 @@ function loadGame() {
 	setTimeout(function(){start[0].style.opacity = '0.2'; }, 600);
 	setTimeout(function(){start[0].style.display = 'none'; }, 800);
 	
-	logosInt = setInterval(logosOnTop, 1500);
-	namilogoint = setInterval(namiLogo, 1050);
+	logosInt = setInterval(logosOnTop, 700);
+	namilogoint = setInterval(namiLogo, 700);
 	
-	setInterval(function(){
-		if (score >= 20){
-			
-			setInterval(logosOnTop, 950); 	
-			setInterval(releaseLogo, 19);   // the flag's speed get enhanced
-		 }
-		if (score >= 40) {
-			
-			setInterval(logosOnTop, 750);
-			setInterval(releaseLogo, 15);   //the flag's speed get enhanced
+	logosint1 = setInterval(function () {
+		
+
+		if (score >= 30 && score <= 50) {
+      //   setInterval(logosOnTop, 11825);
+			setInterval(releaseLogo, 900);// the logo's speed get enhanced
 		}
-		if (score >= 80) {
-			
-			setInterval(logosOnTop, 600);
-			setInterval(releaseLogo, 12);   //ethe flag's speed get enhanced
+		if (score >= 52 && score <= 300){
+		// setInterval(logosOnTop, 4225);
+			setInterval(releaseLogo, 800);   // the logo's speed get enhanced
 		}
-		if (score >= 130) {
-			
-			setInterval(logosOnTop, 500);
-			setInterval(releaseLogo, 10);   //the flag's speed get enhanced
+		if (score >= 442) {
+		//	setInterval(logosOnTop, 1425);
+			setInterval(releaseLogo, 600);   // the logo's speed get enhanced
 		}
+
+		
 	}, 500);
-	logosFalls = setInterval(releaseLogo, 20);
-	namiFalls = setInterval(namiunilogo, 20);
+	logosFalls = setInterval(releaseLogo, 18);
+	namiFalls = setInterval(namiunilogo, 15);
 
 	myLoadFunction();
 }
@@ -146,7 +142,7 @@ function namiunilogo(){
 		var logosTop = parseInt(logosnami.style.top);
 		
 		
-		logosnami.style.top = logosTop + 5 + 'px';
+		logosnami.style.top = logosTop + 3 + 'px';
 		
 	}
 	namidetect();
@@ -160,7 +156,7 @@ function logosOnTop() {
 	var randNumber = Math.random()*60;
 	var logos = document.createElement('img');
 	logos.className = 'logos';
-	var randomL = Math.ceil(Math.random() * 5);
+	var randomL = Math.ceil(Math.random() *10);
 	logos.src = randomL + ".png";
 	body.appendChild(logos);
 	logos.style.top = 50 + 'px';
@@ -176,7 +172,7 @@ function releaseLogo() {
 		var logosTop = parseInt(logos.style.top);
 		
 		
-		logos.style.top = logosTop + 5 + 'px';
+		logos.style.top = logosTop +10+ 'px';
 		
 	}
 	logosAndPlayerCollide();
@@ -234,7 +230,7 @@ function cracklogos(){
 					body.removeChild(logos[i]);
 					score += 1;
 					var scoreb = document.getElementById('scorehere');
-					scoreb.firstChild.nodeValue = 'FLAGS DODGED : ' + score ;
+					scoreb.firstChild.nodeValue = 'LOGOS DODGED : ' + score ;
 					
 				}
 			}, 5);
@@ -356,6 +352,9 @@ function finishTheGame() {
 	clearInterval(logosFalls);
 	clearInterval(namilogoint);
 	clearInterval(logosInt);
+	clearInterval(logosint1);
+	
+	
 }
 
 
